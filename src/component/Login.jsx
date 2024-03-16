@@ -62,7 +62,7 @@ const Login = () => {
                   className="error-message"
                 />
               </div>
-              <div className="form-field checkbox-container">
+              <div className="form-field checkbox-container ">
                 <label>
                   <Field
                     type="checkbox"
@@ -80,18 +80,23 @@ const Login = () => {
               </div>
               <div className="modal-buttons">
                 <button
-                  className="submit-btn"
+                  className="submit-btn p-2 "
                   type="submit"
                   disabled={isSubmitting}
                 >
                   Submit
                 </button>
-                <Link className="text-primary" to="/forgot-password">
+                <Link className="text-primary p-5" to="/forgot-password">
                   Forgot Password?
                 </Link>
               </div>
-              <p className="sign-up">
-                Create a new account? <Link to="/register">Sign Up</Link>
+              <p className="sign-in text-center m-2 p-2 ">
+                <h4>
+                  Create a new account?{" "}
+                  <Link className="text-primary" to="/register">
+                    Sign Up
+                  </Link>
+                </h4>
               </p>
             </Form>
           )}

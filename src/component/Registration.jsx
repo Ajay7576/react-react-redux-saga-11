@@ -1,138 +1,125 @@
 import React from "react";
-import { GlobalStyle } from "./GlobalStyles";
-import { useFormik } from "formik";
-import signUpSchema from "../validationSchema/schema";
-import "../component/css/registration.css";
-import myspace from "./images/tom-gainor-Ab58uXOtIWA-unsplash (1).jpg";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
+import "../component/css/registration.css";
+import signUpSchema from "../validationSchema/schema";
 
-const Registration = () => {
-  
-  const initialValues = {
-    name: "",
-    email: "",
-    password: "",
-    confirm_password: "",
-  };
-
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues,
-      validationSchema: signUpSchema,
-      onSubmit: (values, action) => {
-        console.log(
-          "🚀 ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
-          values
-        );
-        action.resetForm();
-      },
-    });
-  console.log(
-    "🚀 ~ file: Registration.jsx ~ line 25 ~ Registration ~ errors",
-    errors
-  );
-
+const Register = () => {
   return (
-    <>
-      <GlobalStyle />
-
-      <div className="container">
-        <div className="modal">
-          <div className="modal-container">
-            <div className="modal-left">
-              <h1 className="modal-title">Registration</h1>
-              <p className="modal-desc">To My Space</p>
-              <form onSubmit={handleSubmit}>
-                <div className="input-block">
-                  <label htmlFor="name" className="input-label">
-                    Name
-                  </label>
-                  <input
-                    type="name"
-                    autoComplete="off"
-                    name="name"
-                    id="name"
-                    placeholder="Name"
-                    value={values.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.name && touched.name ? (
-                    <p className="form-error">{errors.name}</p>
-                  ) : null}
-                </div>
-                <div className="input-block">
-                  <label htmlFor="email" className="input-label">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    autoComplete="off"
-                    name="email"
-                    id="email"
-                    placeholder="Email"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.email && touched.email ? (
-                    <p className="form-error">{errors.email}</p>
-                  ) : null}
-                </div>
-                <div className="input-block">
-                  <label htmlFor="password" className="input-label">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    autoComplete="off"
-                    name="password"
-                    id="password"
-                    placeholder="Password"
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.password && touched.password ? (
-                    <p className="form-error">{errors.password}</p>
-                  ) : null}
-                </div>
-                <div className="input-block">
-                  <label htmlFor="confirm_password" className="input-label">
-                    Confirm Password
-                  </label>
-                  <input
-                    type="password"
-                    autoComplete="off"
-                    name="confirm_password"
-                    id="confirm_password"
-                    placeholder="Confirm Password"
-                    value={values.confirm_password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.confirm_password && touched.confirm_password ? (
-                    <p className="form-error">{errors.confirm_password}</p>
-                  ) : null}
-                </div>
-                <div className="modal-buttons">
-                  <button className="input-button" type="submit">
-                    Register
-                  </button>
-                </div>
-                <p className="sign-up">
-                  Already have an account? <Link to="/login">Sign In now</Link>
-                </p>
-              </form>
-            </div>
-            <div className="modal-right">
-              <img src={myspace} alt="" />
-            </div>
-          </div>
-        </div>
+    <div className="signup-container">
+      <div className="signupform-container">
+        <h1>Register</h1>
+        <Formik
+          initialValues={{
+            username: "",
+            email: "",
+            password: "",
+            confirm_password: "",
+          }}
+          validationSchema={signUpSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              setSubmitting(false);
+            }, 400);
+          }}
+        >
+          {({ isSubmitting, errors, touched }) => (
+            <Form>
+              <div className="form-field">
+                <label htmlFor="username" className="label">
+                  Username
+                </label>
+                <Field
+                  type="text"
+                  name="username"
+                  className={`input ${
+                    !errors.username && touched.username ? "valid" : ""
+                  } ${errors.username && touched.username ? "invalid" : ""}`}
+                />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="email" className="label">
+                  Email
+                </label>
+                <Field
+                  type="email"
+                  name="email"
+                  className={`input ${
+                    !errors.email && touched.email ? "valid" : ""
+                  } ${errors.email && touched.email ? "invalid" : ""}`}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="password" className="label">
+                  Password
+                </label>
+                <Field
+                  type="password"
+                  name="password"
+                  className={`input ${
+                    !errors.password && touched.password ? "valid" : ""
+                  } ${errors.password && touched.password ? "invalid" : ""}`}
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="confirm_password" className="label">
+                  Confirm Password
+                </label>
+                <Field
+                  type="password"
+                  name="confirm_password"
+                  className={`input ${
+                    !errors.confirm_password && touched.confirm_password
+                      ? "valid"
+                      : ""
+                  } ${
+                    errors.confirm_password && touched.confirm_password
+                      ? "invalid"
+                      : ""
+                  }`}
+                />
+                <ErrorMessage
+                  name="confirm_password"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
+              <div className="modal-buttons text-center p-2">
+                <button
+                  className="submit-btn"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Register
+                </button>
+              </div>
+              <p className="text-center p-2">
+                <h4>
+                  Already have an account? <Link to="/login">Log In</Link>
+                </h4>
+              </p>
+            </Form>
+          )}
+        </Formik>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Registration;
+export default Register;
