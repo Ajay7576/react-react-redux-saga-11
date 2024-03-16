@@ -80,7 +80,7 @@ const Login = () => {
               </div>
               <div className="modal-buttons col-12 row">
                 <div className="row">
-                  <div className="col-sm-6 mb-3 p-2">
+                  <div className="col-sm-6 mb-3 ">
                     <button
                       className="submit-btnL p-2 w-100"
                       type="submit"
@@ -91,7 +91,7 @@ const Login = () => {
                   </div>
                   <div className="col-sm-6">
                     <Link
-                      className="text-primary text-decoration-none float-right"
+                      className="text-primary text-decoration-none "
                       to="/forgot-password"
                     >
                       Forgot Password?
