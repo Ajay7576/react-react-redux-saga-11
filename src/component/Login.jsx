@@ -1,113 +1,103 @@
 import React from "react";
-import "./css/login.css";
-import { GlobalStyle } from "./GlobalStyles";
-import { useFormik } from "formik";
-import  signupSchema from "../validationSchema/schema";
-import myspace from "./images/tom-gainor-Ab58uXOtIWA-unsplash (1).jpg";
-import { Link } from "react-router-dom";
-
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import "./css/login.css"; // Import CSS file for styling
 
 const Login = () => {
-  const initialValues = {
-    name: "",
-    email: "",
-    password: "",
-    confirm_password: "",
-  };
-
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues,
-      validationSchema: signupSchema,
-      validateOnChange: true,
-      validateOnBlur: false,
-      //// By disabling validation onChange and onBlur formik will validate on submit.
-      onSubmit: (values, action) => {
-        console.log("🚀 ~ file: App.jsx ~ line 17 ~ App ~ values", values);
-        //// to get rid of all the values after submitting the form
-        action.resetForm();
-      },
-    });
-
-  console.log(errors);
-
   return (
-    <>
-      <GlobalStyle />
-        <div className="container">
-          <div className="modal">
-            <div className="modal-container">
-              <div className="modal-left">
-                <h1 className="modal-title">Welcome!</h1>
-                <p className="modal-desc">
-                  To My Space 
-                </p>
-                <form onSubmit={handleSubmit}>
-        
-                  <div className="input-block">
-                    <label htmlFor="email" className="input-label">
-                      UserName Or Email
-                    </label>
-                    <input
-                      type="email"
-                      autoComplete="off"
-                      name="email"
-                      id="email"
-                      placeholder="Email"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.email && touched.email ? (
-                      <p className="form-error">{errors.email}</p>
-                    ) : null}
-                  </div>
-                  <div className="input-block">
-                    <label htmlFor="password" className="input-label">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      autoComplete="off"
-                      name="password"
-                      id="password"
-                      placeholder="Password"
-                      value={values.password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.password && touched.password ? (
-                      <p className="form-error">{errors.password}</p>
-                    ) : null}
-                  </div>
-
-
-                  <div className="modal-buttons">
-                  
-                    <button className="input-button" type="submit">
-                      Submit
-                    </button>
-
-                    <Link to="/navbar" className="">
-                      Forgot Password ?
-                    </Link>
-                  </div>
-                </form>
-                <p className="sign-up">
-                  Create a new  account? <Link to="/register"> Sign Up </Link>
-                </p>
-              </div>
-              <div className="modal-right">
-                <img
-                //   src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dfd2ec5a01006fd8c4d7592a381d3776&auto=format&fit=crop&w=1000&q=80"
-                src={myspace}
-                alt=""
+    <div className="login-container">
+      <div className="form-container">
+        <h1>Login</h1>
+        <Formik
+          initialValues={{ username: "", password: "", rememberMe: false }}
+          validationSchema={Yup.object().shape({
+            username: Yup.string().required("Username is required"),
+            password: Yup.string().required("Password is required"),
+            rememberMe: Yup.boolean().oneOf(
+              [true],
+              "You must accept the terms and conditions"
+            ),
+          })}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              setSubmitting(false);
+            }, 400);
+          }}
+        >
+          {({ isSubmitting, errors, touched }) => (
+            <Form>
+              <div className="form-field">
+                <label htmlFor="username" className="label">
+                  Username
+                </label>
+                <Field
+                  type="text"
+                  name="username"
+                  className={`input ${
+                    !errors.username && touched.username ? "valid" : ""
+                  } ${errors.username && touched.username ? "invalid" : ""}`}
+                />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  className="error-message"
                 />
               </div>
-            </div>
-          </div>
-        </div>
-    </>
+              <div className="form-field">
+                <label htmlFor="password" className="label">
+                  Password
+                </label>
+                <Field
+                  type="password"
+                  name="password"
+                  className={`input ${
+                    !errors.password && touched.password ? "valid" : ""
+                  } ${errors.password && touched.password ? "invalid" : ""}`}
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
+              <div className="form-field checkbox-container">
+                <label>
+                  <Field
+                    type="checkbox"
+                    name="rememberMe"
+                    className="checkbox-input"
+                  />
+                  <span className="checkmark"></span>
+                  Remember Me
+                </label>
+                <ErrorMessage
+                  name="rememberMe"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
+              <div className="modal-buttons">
+                <button
+                  className="submit-btn"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Submit
+                </button>
+                <Link className="text-primary" to="/forgot-password">
+                  Forgot Password?
+                </Link>
+              </div>
+              <p className="sign-up">
+                Create a new account? <Link to="/register">Sign Up</Link>
+              </p>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
   );
 };
 
