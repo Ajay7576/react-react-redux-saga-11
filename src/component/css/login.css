@@ -70,8 +70,8 @@
     text-decoration: underline;
 }
 
-.submit-btn {
-    width: 50%;
+.submit-btnL {
+    width: 40%;
     padding: 12px;
     background-color: skyblue;
     color: #fff;
@@ -81,7 +81,7 @@
     transition: background-color 0.3s ease;
 }
 
-.submit-btn:hover {
+.submit-btnL:hover {
     background-color: #d7e5f3;
 }
 
@@ -158,5 +158,26 @@
 @media (max-width: 768px) {
     .form-container {
         max-width: 90%;
+    }
+}
+
+/* Responsive styles for Android and iPhones */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 10px;
+    }
+
+    .submit-btnL {
+        width: 50%;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .form-container {
+        max-width: 80%;
+    }
+
+    .submit-btnL {
+        width: 45%;
     }
 }

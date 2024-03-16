@@ -78,17 +78,26 @@ const Login = () => {
                   className="error-message"
                 />
               </div>
-              <div className="modal-buttons">
-                <button
-                  className="submit-btn p-2 "
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  Submit
-                </button>
-                <Link className="text-primary p-5" to="/forgot-password">
-                  Forgot Password?
-                </Link>
+              <div className="modal-buttons col-12 row">
+                <div className="row">
+                  <div className="col-sm-6 mb-3 p-2">
+                    <button
+                      className="submit-btnL p-2 w-100"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                  <div className="col-sm-6">
+                    <Link
+                      className="text-primary text-decoration-none float-right"
+                      to="/forgot-password"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </div>
+                </div>
               </div>
               <p className="sign-in text-center m-2 p-2 ">
                 <h4>
