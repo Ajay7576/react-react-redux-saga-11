@@ -12,17 +12,15 @@ import {
   CNavbarNav,
   CNavItem,
   CNavLink,
-  CDropdown,
-  CDropdownToggle,
-  CDropdownMenu,
-  CDropdownItem,
-  CDropdownDivider,
   CForm,
   CFormInput,
   CButton,
 } from "@coreui/react";
 
 const Navbar = () => {
+  const onSearch = (event) => {
+    debugger;
+  };
   const [visible, setVisible] = useState(false);
 
   return (
@@ -35,7 +33,7 @@ const Navbar = () => {
           onClick={() => setVisible(!visible)}
         />
         <CNavbarBrand className="text-light">
-          Welcome to my space .......
+          Welcome to Effort less Service
         </CNavbarBrand>
 
         <COffcanvas
@@ -46,7 +44,7 @@ const Navbar = () => {
           onHide={() => setVisible(false)}
         >
           <COffcanvasHeader>
-            <COffcanvasTitle>Main Layout</COffcanvasTitle>
+            <COffcanvasTitle>Menu</COffcanvasTitle>
             <CCloseButton
               className="text-reset"
               onClick={() => setVisible(false)}
@@ -54,6 +52,21 @@ const Navbar = () => {
           </COffcanvasHeader>
           <COffcanvasBody>
             <CNavbarNav>
+              <CForm className="d-flex">
+                <CFormInput
+                  type="search"
+                  className="me-2"
+                  placeholder="Search"
+                />
+                <CButton
+                  type="submit"
+                  onClick={onSearch}
+                  color="success"
+                  variant="outline"
+                >
+                  Search
+                </CButton>
+              </CForm>
               <CNavItem>
                 <CNavLink href="/home" active>
                   Home
@@ -62,40 +75,34 @@ const Navbar = () => {
 
               <CNavItem>
                 <CNavLink href="/Student" active>
-                  Student
+                  User
+                </CNavLink>
+              </CNavItem>
+
+              <CNavItem>
+                <CNavLink href="/Student" active>
+                  Client
                 </CNavLink>
               </CNavItem>
 
               <CNavItem>
                 <CNavLink href="/About" active>
-                  About
+                  Plan
                 </CNavLink>
               </CNavItem>
 
               <CNavItem>
                 <CNavLink href="/Contact" active>
-                  Contact
+                  Subscription
                 </CNavLink>
               </CNavItem>
 
-              <CDropdown variant="nav-item" popper={false}>
-                <CDropdownToggle color="secondary">
-                  Dropdown button
-                </CDropdownToggle>
-                <CDropdownMenu>
-                  <CDropdownItem href="#">Action</CDropdownItem>
-                  <CDropdownItem href="#">Another action</CDropdownItem>
-                  <CDropdownDivider />
-                  <CDropdownItem href="#">Something else here</CDropdownItem>
-                </CDropdownMenu>
-              </CDropdown>
+              <CNavItem>
+                <CNavLink href="/Contact" active>
+                  Invoice
+                </CNavLink>
+              </CNavItem>
             </CNavbarNav>
-            <CForm className="d-flex">
-              <CFormInput type="search" className="me-2" placeholder="Search" />
-              <CButton type="submit" color="success" variant="outline">
-                Search
-              </CButton>
-            </CForm>
           </COffcanvasBody>
         </COffcanvas>
       </CContainer>

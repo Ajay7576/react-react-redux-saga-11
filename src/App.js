@@ -12,6 +12,7 @@ import Contact from './component/Contact';
 function App() {
   return (
     <>
+    <Navbar/>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login/>}/>
